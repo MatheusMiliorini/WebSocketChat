@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .largoAlto {
+            height: 100%;
+            width: 100%;
+        }
+
+        .largo {
+            width: 100%;
+        }
+        .alto {
+            height: 100%;
+        }
+
+        button {
+            margin-top: 12px;
+        }
+
+        .nome {
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .messageBox1 {
+            background-color: lightgrey;
+            padding: 5px 0px 2px 10px;
+        }
+
+        .messageBox2 {
+            background-color: lightcoral;
+            padding: 5px 0px 2px 10px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+        .col-sm-12 {
+            padding: 0px;
+        }
+
+        #txtMensagem {
+            border-radius: 0px;
+        }
+
+        @media (max-width:600px) {
+            form {
+                position: fixed;
+                bottom: 0px;
+                width: 100%;
+            }
+            #listaMensagens {
+                overflow: auto;
+                height: 78vh;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container col-lg-3 col-sm-12">
+        <div id="listaMensagens">
+
+        </div>
+
+        <form>
+            <input type="text" id="txtMensagem" class="form-control" required placeholder="Escreva aqui">
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var classes = ["messageBox1", "messageBox2"];
+        var classeAtual = 0;
+
+        $(document).ready(function () {
+            var socket = io();
+            var nome = document.cookie.split('=')[1];
+            if (nome == null) {
+                window.location = "/";
+            }
+            socket.emit('login', nome);
+
+            $('form').submit(function (e) {
+                e.preventDefault();
+                var txtMensagem = $("#txtMensagem").val();
+                socket.emit('mensagem', txtMensagem);
+                $("#txtMensagem").val('');
+            });
+
+            socket.on('mensagem', function (msg) {
+                console.log(msg);
+                $("#listaMensagens").append(
+                    `
+                    <div class=${classes[classeAtual]}>
+                        <p class="nome">${msg.nomeUsuario}:</p>
+                        <p class="mensagem">${msg.mensagem}</p>
+                    </div>
+                `
+                );
+                if (classeAtual == 0) {
+                    classeAtual = 1;
+                } else {
+                    classeAtual = 0;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
