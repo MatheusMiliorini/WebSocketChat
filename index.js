@@ -66,9 +66,6 @@ io.on('connection', function (socket) {
     });
 });
 
-io.of('/chatList')
-
-
 http.listen(3000, function () {
     console.log('listening on *:3000');
 });

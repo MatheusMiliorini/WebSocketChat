@@ -28,14 +28,14 @@ $(document).ready(function () {
 
     socket.on('abrir conversa', function (data) {
         if (data.destinoConversa == nome) {
-            window.open(`/chat/${data.idConversa}/${data.destinoConversa}/true`, nome, 'height=300px,width=700px;');
+            window.open(`/chat/${data.idConversa}/${data.destinoConversa}/true`, data.idConversa, 'height=300px,width=700px;');
         }
     });
 
     $("ul").on('click', 'li', function () {
         var _nome = $(this).text();
         if (_nome != "Usuários logados" && _nome != nome) {
-            window.open(`/chat/${Math.floor((Math.random() * 100000) + 1 )}/${_nome}/false`, nome, 'height=300px,width=700px;');
+            window.open(`/chat/${Math.floor((Math.random() * 100000) + 1 )}/${_nome}/false`, Math.floor((Math.random() * 100000) + 1), 'height=300px,width=700px;');
         }
 
     });
