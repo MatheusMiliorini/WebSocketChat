@@ -49,7 +49,8 @@ io.on('connection', function (socket) {
         //Faz o DESTINO abrir a conversa também
         io.emit('abrir conversa', {
             'destinoConversa': data.destinoConversa,
-            'idConversa': data.idConversa
+            'idConversa': data.idConversa,
+            'origemConversa':data.origemConversa
         });
 
         nomeUsuario = `${data.destinoConversa}:`; //Dois pontos atrás pra que quando feche essa tela, não remover da lista de usuários ativos

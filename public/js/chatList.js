@@ -26,17 +26,18 @@ $(document).ready(function () {
         });
     });
 
-    socket.on('abrir conversa', function (data) {
-        if (data.destinoConversa == nome) {
-            window.open(`/chat/${data.idConversa}/${data.destinoConversa}/true`, data.idConversa, 'height=300px,width=700px;');
-        }
-    });
-
     $("ul").on('click', 'li', function () {
         var _nome = $(this).text();
         if (_nome != "Usuários logados" && _nome != nome) {
-            window.open(`/chat/${Math.floor((Math.random() * 100000) + 1 )}/${_nome}/false`, Math.floor((Math.random() * 100000) + 1), 'height=300px,width=700px;');
+            //Abre uma nova tela de conversa (iniciando). Só pode abrir uma conversa por destino.
+            window.open(`/chat/${Math.floor((Math.random() * 100000) + 1 )}/${_nome}/false`, _nome, 'height=300px,width=700px;');
         }
 
+    });
+
+    socket.on('abrir conversa', function (data) {
+        if (data.destinoConversa == nome) {
+            window.open(`/chat/${data.idConversa}/${data.destinoConversa}/true`, data.origemConversa, 'height=300px,width=700px;');
+        }
     });
 });
