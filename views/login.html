@@ -46,16 +46,7 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            $('form').submit(function (e) {
-                e.preventDefault();
-                document.cookie = `nome=${$('#nome').val()}`;
-                $("#nome").val('');
-                window.location = "/chat";
-            })
-        });
-    </script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

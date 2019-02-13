@@ -1,0 +1,42 @@
+/* Login */
+.largoAlto {
+    height: 100%;
+    width: 100%;
+}
+
+.largo {
+    width: 100%;
+}
+
+.alto {
+    height: 100%;
+}
+
+button {
+    margin-top: 12px;
+}
+
+/* ChatList */
+
+.container-fluid {
+    padding: 0px;
+}
+
+li {
+    border-radius: 0px !important;
+    border: 0px !important;
+}
+
+li:hover {
+    background-color: aliceblue;
+}
+
+/* Chat */
+
+.nome {
+    font-weight: bold;
+}
+
+#campoMensagem {
+    margin-top: 10px;
+}
