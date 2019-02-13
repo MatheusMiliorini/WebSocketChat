@@ -50,7 +50,7 @@ io.on('connection', function (socket) {
         io.emit('abrir conversa', {
             'destinoConversa': data.destinoConversa,
             'idConversa': data.idConversa,
-            'origemConversa':data.origemConversa
+            'origemConversa': data.origemConversa
         });
 
         nomeUsuario = `${data.destinoConversa}:`; //Dois pontos atrás pra que quando feche essa tela, não remover da lista de usuários ativos
@@ -67,6 +67,12 @@ io.on('connection', function (socket) {
     });
 });
 
-http.listen(3000, function () {
+// Heroku
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 8000;
+}
+
+http.listen(port, function () {
     console.log('listening on *:3000');
 });
